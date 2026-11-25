@@ -19,3 +19,5 @@ python -m unittest discover -s tests -v   # 테스트
 
 GitHub Actions가 15분마다 수집한 뒤 GitHub Pages에 배포한다.
 저장소 Settings → Pages → Source를 **GitHub Actions**로 설정해야 한다.
+
+사이트 주소: https://ajin-kim-98.github.io/LLM-tracker/
