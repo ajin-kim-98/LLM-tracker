@@ -99,6 +99,23 @@
 
   .notice { color: var(--text-secondary); }
 
+  /* AI 판단 (선택 기능) */
+  .ai-bar {
+    display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between;
+    gap: 8px 16px; margin-bottom: 24px;
+  }
+  .ai-status { margin: 0; font-size: 15px; line-height: 1.4; color: var(--text-secondary); }
+  .ai-status:empty { display: none; }
+  .ai-actions { display: flex; flex-wrap: wrap; gap: 16px; margin-left: auto; }
+  .text-button {
+    padding: 0; border: 0; background: none; cursor: pointer;
+    font-family: inherit; font-size: 17px; line-height: 1.53; color: var(--primary);
+  }
+  .text-button:hover { color: var(--primary-hover); text-decoration: underline; }
+  .text-button:focus-visible { outline: 2px solid var(--primary); outline-offset: 4px; border-radius: 4px; }
+  .reason { margin: 4px 0 0; font-size: 15px; line-height: 1.4; color: var(--text-secondary); }
+  .featured .reason { margin-top: 8px; color: var(--text); }
+
   footer { background: var(--surface); color: var(--text-secondary); font-size: 15px; line-height: 1.4; }
   footer .wrap { padding-block: 24px; }
   footer p { margin: 0; }
@@ -127,10 +144,14 @@
 <footer>
   <div class="wrap">
     <p>15분마다 뽐뿌 핫딜과 Google 뉴스에서 새 글을 모읍니다. 가격은 글 제목에 적힌 값만 보여줍니다.</p>
+    <p>AI 판단은 이 브라우저 안의 Chrome 내장 AI로만 실행되고, 결과는 이 기기에만 저장됩니다.</p>
     <p id="updated"></p>
   </div>
 </footer>
 
+<!-- Chrome 내장 AI 연결: 번역(translator-ko.js)을 먼저, 언어 모델(ai.js)을 다음에 -->
+<script src="js/translator-ko.js"></script>
+<script src="js/ai.js"></script>
 <script>
 (function () {
   var NO_PRICE = "가격 정보 없음";
@@ -174,6 +195,8 @@
     box.appendChild(el("div", "meta", metaText(item)));
     box.appendChild(el("h2", "featured-title", item.title));
     box.appendChild(el("p", "featured-price" + (item.price ? "" : " empty"), item.price || NO_PRICE));
+    var j = judgment(item);
+    if (j && j.reason) box.appendChild(el("p", "reason", "AI 판단: " + j.reason));
     var btn = el("a", "button", "원문 보기");
     btn.href = safeLink(item.link);
     btn.target = "_blank";
@@ -194,17 +217,134 @@
     if (isNew(item)) meta.appendChild(el("span", "badge", "새 글"));
     meta.appendChild(document.createTextNode(metaText(item)));
     body.appendChild(meta);
+    var j = judgment(item);
+    if (j && j.reason) body.appendChild(el("div", "reason", "AI 판단: " + j.reason));
     li.appendChild(body);
     li.appendChild(el("span", "price" + (item.price ? "" : " empty"), item.price || NO_PRICE));
     return li;
   }
 
-  function render(data) {
-    var main = document.getElementById("main");
-    main.textContent = "";
-    var items = (data.items || []).slice().sort(function (a, b) {
+  /* ───────── AI 판단 (Chrome 내장 AI, 선택 기능) ─────────
+   * 제목(한국어) → KoTranslate.toEnglish → AI.ask(ai/prompt.md + ai/schema.json) → reason만 한국어로.
+   * 판단 결과는 이 브라우저의 localStorage에만 저장한다 (서버로 보내지 않음).
+   */
+  var AI_STORE = "winterdeal:ai:v1";
+  var AI_OK = !!(window.AI && AI.isSupported() && window.KoTranslate && KoTranslate.isSupported());
+  var ai = loadAi();                       // { on, key, cache: { link: { relevant, reason } } }
+  var view = { data: null, judging: false, msg: "", error: "", done: 0, total: 0 };
+
+  function loadAi() {
+    try {
+      var s = JSON.parse(localStorage.getItem(AI_STORE));
+      if (s && s.cache) return s;
+    } catch (e) {}
+    return { on: false, key: "", cache: {} };
+  }
+  function saveAi() {
+    try { localStorage.setItem(AI_STORE, JSON.stringify(ai)); } catch (e) {}
+  }
+
+  function sortedItems() {
+    return ((view.data && view.data.items) || []).slice().sort(function (a, b) {
       return (b.published_at || "").localeCompare(a.published_at || "");
     });
+  }
+  function judgment(item) { return ai.on ? ai.cache[item.link] : null; }
+  function isHidden(item) { var j = judgment(item); return !!j && j.relevant === false; }
+  function pendingItems() { return sortedItems().filter(function (i) { return !(i.link in ai.cache); }); }
+
+  async function runAi() {
+    if (view.judging) return;
+    // 모델 다운로드는 클릭 직후, 어떤 await보다 먼저 시작해야 허용된다.
+    var onProgress = function (loaded) {
+      view.msg = "AI 모델을 받고 있어요 " + Math.round((loaded || 0) * 100) + "%";
+      render();
+    };
+    var ready = Promise.all([AI.prepare(onProgress), KoTranslate.prepare(onProgress)]);
+
+    var key = (view.data.keywords || []).join("|");
+    if (ai.key !== key) { ai.cache = {}; ai.key = key; }   // 키워드가 바뀌면 이전 판단은 버린다
+    ai.on = true;
+    var pending = pendingItems();
+    if (!pending.length) { ready.catch(function () {}); saveAi(); render(); return; }
+
+    view.judging = true; view.error = ""; view.done = 0; view.total = pending.length;
+    view.msg = "AI 모델을 준비하고 있어요";
+    render();
+    try {
+      await ready;
+      var prompt = await AI.loadPrompt("ai/prompt.md");
+      var schema = await AI.loadSchema("ai/schema.json");
+      var session = await AI.createSession(prompt);
+      for (var i = 0; i < pending.length; i++) {
+        var item = pending[i];
+        view.msg = "AI가 확인하고 있어요 " + (i + 1) + " / " + pending.length;
+        render();
+        try {
+          var en = await KoTranslate.toEnglish(item.title);
+          var answer = await AI.ask(session, en, schema);
+          var ko = await KoTranslate.fieldsToKorean(answer, ["reason"]);
+          ai.cache[item.link] = { relevant: ko.relevant === true, reason: ko.reason || "" };
+        } catch (err) {
+          console.warn("판단하지 못한 글:", item.title, err);   // 이 글은 판단 없이 그대로 보여준다
+        }
+        view.done = i + 1;
+      }
+      if (session.destroy) session.destroy();
+    } catch (err) {
+      console.error(err);
+      ai.on = false;
+      view.error = (err && err.message) || "AI 판단 중 문제가 생겼습니다.";
+    }
+    view.judging = false; view.msg = "";
+    saveAi();
+    render();
+  }
+
+  function textButton(label, onClick) {
+    var b = el("button", "text-button", label);
+    b.type = "button";
+    b.addEventListener("click", onClick);
+    return b;
+  }
+
+  function renderAiBar(hiddenCount) {
+    var bar = el("div", "ai-bar");
+    var status = el("p", "ai-status");
+    status.setAttribute("role", "status");
+    var actions = el("div", "ai-actions");
+
+    if (!AI_OK) {
+      status.textContent = "데스크톱 Chrome(148 이상)에서 열면 AI로 겨울옷 할인 글만 골라볼 수 있습니다.";
+    } else if (view.judging) {
+      status.textContent = view.msg;
+    } else {
+      if (view.error) {
+        status.textContent = "AI 판단을 하지 못했습니다: " + view.error;
+      } else if (ai.on) {
+        status.textContent = hiddenCount
+          ? "AI가 겨울옷 할인이 아닌 글 " + hiddenCount + "건을 숨겼습니다."
+          : "AI가 확인한 결과 숨길 글이 없습니다.";
+      }
+      var pending = pendingItems().length;
+      if (!ai.on) {
+        actions.appendChild(textButton("AI로 겨울옷 할인만 보기", runAi));
+      } else {
+        if (pending) actions.appendChild(textButton("새 글 " + pending + "건 AI로 확인하기", runAi));
+        actions.appendChild(textButton("모든 글 보기", function () { ai.on = false; view.error = ""; saveAi(); render(); }));
+      }
+    }
+    bar.appendChild(status);
+    bar.appendChild(actions);
+    return bar;
+  }
+
+  function render() {
+    var data = view.data;
+    var main = document.getElementById("main");
+    main.textContent = "";
+    var all = sortedItems();
+    var items = all.filter(function (i) { return !isHidden(i); });
 
     if (data.keywords && data.keywords.length) {
       document.getElementById("tagline").textContent =
@@ -214,8 +354,14 @@
       document.getElementById("updated").textContent = "마지막 수집: " + when(data.updated_at);
     }
 
-    if (!items.length) {
+    if (!all.length) {
       main.appendChild(el("p", "notice", "아직 키워드에 맞는 할인 소식이 없습니다. 15분 뒤에 다시 확인해 주세요."));
+      return;
+    }
+
+    main.appendChild(renderAiBar(all.length - items.length));
+    if (!items.length) {
+      main.appendChild(el("p", "notice", "AI 기준으로 남은 겨울옷 할인 소식이 없습니다."));
       return;
     }
 
@@ -230,7 +376,15 @@
 
   fetch("deals.json", { cache: "no-store" })
     .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
-    .then(render)
+    .then(function (data) {
+      view.data = data;
+      // 지금 목록에 없는 글의 판단은 지워서 저장 공간이 계속 늘지 않게 한다.
+      var links = {};
+      (data.items || []).forEach(function (i) { links[i.link] = true; });
+      Object.keys(ai.cache).forEach(function (l) { if (!links[l]) delete ai.cache[l]; });
+      saveAi();
+      render();
+    })
     .catch(function () {
       var main = document.getElementById("main");
       main.textContent = "";

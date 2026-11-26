@@ -10,6 +10,8 @@
 - `config.json`: 추적 키워드, 뉴스 필수 단어(할인/세일/특가), 보관 기간, 최대 개수
 - `scripts/collect.py`: RSS 수집 → 필터 → `site/deals.json` 저장 (표준 라이브러리만 사용)
 - `site/index.html`: `deals.json`을 읽어 그리는 단일 페이지 (빌드 없음, CSS/JS 인라인)
+- `site/js/ai.js`, `site/js/translator-ko.js`: Chrome 내장 AI(Prompt API)·번역(Translator API) 도우미 (수업 실습자료, 수정하지 않음)
+- `site/ai/prompt.md`, `site/ai/schema.json`: AI 판단 기준과 답 형식. 키워드를 바꾸면 prompt.md의 관심사 줄도 고친다
 - `tests/test_collect.py`: PRD 완료 기준 테스트
 - `.github/workflows/collect.yml`: 15분 cron → 테스트 → 수집 → deals.json 커밋 → GitHub Pages 배포
 
