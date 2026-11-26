@@ -80,6 +80,19 @@ class MergeTest(unittest.TestCase):
         result = merge(old, new, keep_days=14, max_items=100, now=now)
         self.assertEqual([r["title"] for r in result], ["new a"])
 
+    def test_same_title_different_link_keeps_latest(self):
+        now = datetime(2026, 11, 25, tzinfo=timezone.utc)
+        old = [{"link": "n1", "title": "'에어' 5G 특가…SKT, 무신사 블프 참여",
+                "published_at": "2026-11-24T01:00:00+00:00"}]
+        new = [
+            {"link": "n2", "title": "‘에어’ 5G 특가...SKT, 무신사 블프 참여",
+             "published_at": "2026-11-24T03:00:00+00:00"},
+            {"link": "n3", "title": "유니클로 패딩 할인",
+             "published_at": "2026-11-24T02:00:00+00:00"},
+        ]
+        result = merge(old, new, keep_days=14, max_items=100, now=now)
+        self.assertEqual([r["link"] for r in result], ["n2", "n3"])
+
 
 if __name__ == "__main__":
     unittest.main()

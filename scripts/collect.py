@@ -118,15 +118,33 @@ def sort_latest(items: list[dict]) -> list[dict]:
     return sorted(items, key=lambda i: i.get("published_at") or "", reverse=True)
 
 
+def title_key(title: str) -> str:
+    """중복 판단용 제목: 따옴표·말줄임표·공백 등 기호를 모두 빼고 소문자로 맞춘다."""
+    return re.sub(r"[^0-9a-z가-힣]", "", title.lower())
+
+
+def dedupe_by_title(items: list[dict]) -> list[dict]:
+    """제목이 같은 글은 가장 최근 것 하나만 남긴다 (언론사만 다른 같은 기사 등)."""
+    seen: set[str] = set()
+    result = []
+    for item in sort_latest(items):
+        key = title_key(item["title"])
+        if key in seen:
+            continue
+        seen.add(key)
+        result.append(item)
+    return result
+
+
 def merge(old: list[dict], new: list[dict], keep_days: int, max_items: int,
           now: datetime | None = None) -> list[dict]:
-    """이전 결과와 새 결과를 링크 기준으로 합치고 오래된 글을 지운다."""
+    """이전 결과와 새 결과를 링크와 제목 기준으로 합치고 오래된 글을 지운다."""
     now = now or datetime.now(timezone.utc)
     cutoff = (now - timedelta(days=keep_days)).isoformat()
     by_link = {i["link"]: i for i in old}
     by_link.update({i["link"]: i for i in new})
     kept = [i for i in by_link.values() if (i.get("published_at") or "") >= cutoff]
-    return sort_latest(kept)[:max_items]
+    return dedupe_by_title(kept)[:max_items]
 
 
 # ---------- 네트워크 ----------
