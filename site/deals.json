@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-26T11:37:57.455001+00:00",
+  "updated_at": "2026-11-26T11:57:26.239275+00:00",
   "keywords": [
     "유니클로",
     "노스페이스",
@@ -8,6 +8,32 @@
   ],
   "items": [
     {
+      "title": "[무신사] 엑스텐드 블랜더보틀 스트라다 인슐레이티드 710ml (블랙/화이트) (16,970원/무료)",
+      "link": "http://www.ppomppu.co.kr/zboard/view.php?id=ppomppu&no=752113",
+      "source": "뽐뿌 핫딜",
+      "shop": "무신사",
+      "kind": "hotdeal",
+      "published_at": "2026-11-26T11:39:01+00:00",
+      "price": "16,970원",
+      "discount": null,
+      "keywords": [
+        "무신사"
+      ]
+    },
+    {
+      "title": "[무신사] 베리클로젯 키즈 기모 스코어 맨투맨 (15,810원/무배)",
+      "link": "http://www.ppomppu.co.kr/zboard/view.php?id=ppomppu&no=752112",
+      "source": "뽐뿌 핫딜",
+      "shop": "무신사",
+      "kind": "hotdeal",
+      "published_at": "2026-11-26T11:36:58+00:00",
+      "price": "15,810원",
+      "discount": null,
+      "keywords": [
+        "무신사"
+      ]
+    },
+    {
       "title": "[롯데온] 컬럼비아 남성 옴니히트 패딩 팬츠 (62,410원/무배)",
       "link": "http://www.ppomppu.co.kr/zboard/view.php?id=ppomppu&no=752107",
       "source": "뽐뿌 핫딜",
@@ -15,6 +41,7 @@
       "kind": "hotdeal",
       "published_at": "2026-11-26T11:23:10+00:00",
       "price": "62,410원",
+      "discount": null,
       "keywords": [
         "패딩"
       ]
@@ -29,7 +56,8 @@
       "price": "379,100원",
       "keywords": [
         "무신사"
-      ]
+      ],
+      "discount": null
     },
     {
       "title": "[무신사] 아르보 헨리넥 니트 6colors (19,800원/무료)",
@@ -41,7 +69,8 @@
       "price": "19,800원",
       "keywords": [
         "무신사"
-      ]
+      ],
+      "discount": null
     },
     {
       "title": "'한국 넘어 일본까지 터졌다' 무신사 슈퍼세일 역대급 흥행…'10조 IPO' 청신호",
@@ -53,7 +82,8 @@
       "price": null,
       "keywords": [
         "무신사"
-      ]
+      ],
+      "discount": null
     },
     {
       "title": "블프에 통신요금도 세일…SKT 에어, 무신사 '무진장'서 특가 선보여",
@@ -65,7 +95,8 @@
       "price": null,
       "keywords": [
         "무신사"
-      ]
+      ],
+      "discount": null
     },
     {
       "title": "유니클로, 6년 만에 2주간 ‘감사제’…히트텍·패딩 릴레이 특가",
@@ -75,6 +106,7 @@
       "kind": "news",
       "published_at": "2026-11-24T10:22:23+00:00",
       "price": null,
+      "discount": null,
       "keywords": [
         "유니클로",
         "패딩"
@@ -88,6 +120,7 @@
       "kind": "news",
       "published_at": "2026-11-24T09:13:00+00:00",
       "price": null,
+      "discount": null,
       "keywords": [
         "무신사"
       ]
@@ -100,6 +133,7 @@
       "kind": "news",
       "published_at": "2026-11-24T08:20:06+00:00",
       "price": null,
+      "discount": null,
       "keywords": [
         "무신사"
       ]
@@ -112,6 +146,7 @@
       "kind": "news",
       "published_at": "2026-11-24T05:52:24+00:00",
       "price": null,
+      "discount": "최대 80%",
       "keywords": [
         "무신사"
       ]
@@ -124,6 +159,7 @@
       "kind": "news",
       "published_at": "2026-11-24T04:29:00+00:00",
       "price": null,
+      "discount": null,
       "keywords": [
         "유니클로"
       ]
@@ -136,6 +172,7 @@
       "kind": "news",
       "published_at": "2026-11-24T03:18:28+00:00",
       "price": null,
+      "discount": null,
       "keywords": [
         "무신사"
       ]
@@ -148,6 +185,7 @@
       "kind": "news",
       "published_at": "2026-11-24T02:21:00+00:00",
       "price": null,
+      "discount": null,
       "keywords": [
         "유니클로"
       ]
@@ -162,7 +200,8 @@
       "price": null,
       "keywords": [
         "유니클로"
-      ]
+      ],
+      "discount": null
     },
     {
       "title": "유니클로, 2주간 감사제 진행…히트텍·캐시미어 특가 판매",
@@ -174,7 +213,8 @@
       "price": null,
       "keywords": [
         "유니클로"
-      ]
+      ],
+      "discount": null
     },
     {
       "title": "유니클로 감사제, 6년 만에 2주간 열린다…히트텍 등 할인",
@@ -184,6 +224,7 @@
       "kind": "news",
       "published_at": "2026-11-24T01:17:38+00:00",
       "price": null,
+      "discount": null,
       "keywords": [
         "유니클로"
       ]
@@ -196,6 +237,7 @@
       "kind": "news",
       "published_at": "2026-11-24T01:06:18+00:00",
       "price": null,
+      "discount": null,
       "keywords": [
         "유니클로"
       ]
@@ -210,7 +252,8 @@
       "price": null,
       "keywords": [
         "유니클로"
-      ]
+      ],
+      "discount": null
     },
     {
       "title": "유니클로, 감사제 2주로 확대···겨울 인기 상품 할인",
@@ -220,6 +263,7 @@
       "kind": "news",
       "published_at": "2026-11-24T00:24:14+00:00",
       "price": null,
+      "discount": null,
       "keywords": [
         "유니클로"
       ]
@@ -232,6 +276,7 @@
       "kind": "news",
       "published_at": "2026-11-23T21:00:00+00:00",
       "price": null,
+      "discount": null,
       "keywords": [
         "유니클로",
         "무신사"
@@ -245,6 +290,7 @@
       "kind": "news",
       "published_at": "2026-11-23T12:01:50+00:00",
       "price": null,
+      "discount": null,
       "keywords": [
         "유니클로"
       ]
@@ -257,6 +303,7 @@
       "kind": "news",
       "published_at": "2026-11-23T09:13:24+00:00",
       "price": null,
+      "discount": null,
       "keywords": [
         "무신사"
       ]
@@ -269,6 +316,7 @@
       "kind": "news",
       "published_at": "2026-11-23T07:09:24+00:00",
       "price": null,
+      "discount": null,
       "keywords": [
         "무신사"
       ]
@@ -281,6 +329,7 @@
       "kind": "news",
       "published_at": "2026-11-23T00:00:00+00:00",
       "price": null,
+      "discount": "30%",
       "keywords": [
         "무신사"
       ]
@@ -293,6 +342,7 @@
       "kind": "news",
       "published_at": "2026-11-22T23:42:51+00:00",
       "price": null,
+      "discount": null,
       "keywords": [
         "무신사"
       ]
@@ -307,7 +357,8 @@
       "price": null,
       "keywords": [
         "무신사"
-      ]
+      ],
+      "discount": null
     },
     {
       "title": "SK텔레콤, 무신사와 손잡고 에어 요금제 특가…최대 11만원 쇼핑 혜택",
@@ -317,6 +368,7 @@
       "kind": "news",
       "published_at": "2026-11-22T13:25:05+00:00",
       "price": "11만원",
+      "discount": null,
       "keywords": [
         "무신사"
       ]
@@ -329,6 +381,7 @@
       "kind": "news",
       "published_at": "2026-11-22T11:20:51+00:00",
       "price": "6900원",
+      "discount": null,
       "keywords": [
         "무신사"
       ]
@@ -341,6 +394,7 @@
       "kind": "news",
       "published_at": "2026-11-22T10:20:55+00:00",
       "price": "6900원",
+      "discount": null,
       "keywords": [
         "무신사"
       ]
@@ -353,6 +407,7 @@
       "kind": "news",
       "published_at": "2026-11-22T08:00:00+00:00",
       "price": null,
+      "discount": null,
       "keywords": [
         "유니클로"
       ]
@@ -367,7 +422,8 @@
       "price": "6900원",
       "keywords": [
         "무신사"
-      ]
+      ],
+      "discount": null
     },
     {
       "title": "월 6900원에 5G 쓴다… SKT ‘에어’ 6종, 무신사 할인전 참여",
@@ -377,6 +433,7 @@
       "kind": "news",
       "published_at": "2026-11-22T06:27:59+00:00",
       "price": "6900원",
+      "discount": null,
       "keywords": [
         "무신사"
       ]
@@ -389,6 +446,7 @@
       "kind": "news",
       "published_at": "2026-11-22T03:46:25+00:00",
       "price": null,
+      "discount": null,
       "keywords": [
         "무신사"
       ]
@@ -401,6 +459,7 @@
       "kind": "news",
       "published_at": "2026-11-22T03:42:37+00:00",
       "price": null,
+      "discount": null,
       "keywords": [
         "무신사"
       ]
@@ -413,6 +472,7 @@
       "kind": "news",
       "published_at": "2026-11-22T03:16:19+00:00",
       "price": "6900원",
+      "discount": null,
       "keywords": [
         "무신사"
       ]
@@ -427,7 +487,8 @@
       "price": null,
       "keywords": [
         "무신사"
-      ]
+      ],
+      "discount": null
     },
     {
       "title": "SKT 에어, 무신사 블프서 5G 요금제 특가 판매",
@@ -437,6 +498,7 @@
       "kind": "news",
       "published_at": "2026-11-22T02:05:16+00:00",
       "price": null,
+      "discount": null,
       "keywords": [
         "무신사"
       ]
@@ -449,6 +511,7 @@
       "kind": "news",
       "published_at": "2026-11-22T01:05:37+00:00",
       "price": null,
+      "discount": null,
       "keywords": [
         "무신사"
       ]
@@ -461,6 +524,7 @@
       "kind": "news",
       "published_at": "2026-11-22T01:04:00+00:00",
       "price": null,
+      "discount": null,
       "keywords": [
         "무신사"
       ]
@@ -473,6 +537,7 @@
       "kind": "news",
       "published_at": "2026-11-22T00:59:05+00:00",
       "price": null,
+      "discount": null,
       "keywords": [
         "무신사"
       ]
@@ -487,7 +552,8 @@
       "price": null,
       "keywords": [
         "무신사"
-      ]
+      ],
+      "discount": null
     },
     {
       "title": "SKT 에어, 무신사 ‘무진장’ 첫 참여…월 6900원부터 5G 특가",
@@ -497,6 +563,7 @@
       "kind": "news",
       "published_at": "2026-11-22T00:50:00+00:00",
       "price": "6900원",
+      "discount": null,
       "keywords": [
         "무신사"
       ]
@@ -509,6 +576,7 @@
       "kind": "news",
       "published_at": "2026-11-22T00:36:39+00:00",
       "price": "6900원",
+      "discount": null,
       "keywords": [
         "무신사"
       ]
@@ -521,6 +589,7 @@
       "kind": "news",
       "published_at": "2026-11-22T00:24:42+00:00",
       "price": "6900원",
+      "discount": null,
       "keywords": [
         "무신사"
       ]
@@ -535,7 +604,8 @@
       "price": "6900원",
       "keywords": [
         "무신사"
-      ]
+      ],
+      "discount": null
     },
     {
       "title": "SKT '에어', 무신사 블프 참여…통신요금제 특가 선보여",
@@ -545,6 +615,7 @@
       "kind": "news",
       "published_at": "2026-11-22T00:15:06+00:00",
       "price": null,
+      "discount": null,
       "keywords": [
         "무신사"
       ]
@@ -559,7 +630,8 @@
       "price": null,
       "keywords": [
         "무신사"
-      ]
+      ],
+      "discount": null
     },
     {
       "title": "SKT, 무신사 블랙프라이데이서 '에어' 요금제 할인",
@@ -571,7 +643,8 @@
       "price": null,
       "keywords": [
         "무신사"
-      ]
+      ],
+      "discount": null
     },
     {
       "title": "“블프에 통신요금도 할인”…SKT 에어, 무신사서 월 6900원 효과",
@@ -581,6 +654,7 @@
       "kind": "news",
       "published_at": "2026-11-22T00:05:13+00:00",
       "price": "6900원",
+      "discount": null,
       "keywords": [
         "무신사"
       ]
@@ -595,7 +669,8 @@
       "price": null,
       "keywords": [
         "무신사"
-      ]
+      ],
+      "discount": null
     },
     {
       "title": "SKT 에어, 무신사 '무진장' 참여…통신요금 할인",
@@ -605,6 +680,7 @@
       "kind": "news",
       "published_at": "2026-11-21T23:53:04+00:00",
       "price": null,
+      "discount": null,
       "keywords": [
         "무신사"
       ]
@@ -617,6 +693,7 @@
       "kind": "news",
       "published_at": "2026-11-21T23:52:27+00:00",
       "price": null,
+      "discount": null,
       "keywords": [
         "무신사"
       ]
@@ -631,7 +708,8 @@
       "price": null,
       "keywords": [
         "유니클로"
-      ]
+      ],
+      "discount": null
     },
     {
       "title": "유니클로 감사 주간 첫날, 쇼핑 분위기는 활기 넘쳤습니다. 다양한 가을/겨울 신상품들이 매력적인 할인가로 제공되었습니다.",
@@ -643,7 +721,8 @@
       "price": null,
       "keywords": [
         "유니클로"
-      ]
+      ],
+      "discount": null
     },
     {
       "title": "무신사, 연중 최대 ‘무진장 블프’ 11일…최대 80% 할인 쏟아진다",
@@ -653,6 +732,7 @@
       "kind": "news",
       "published_at": "2026-11-20T08:58:32+00:00",
       "price": null,
+      "discount": "최대 80%",
       "keywords": [
         "무신사"
       ]
@@ -665,6 +745,7 @@
       "kind": "news",
       "published_at": "2026-11-20T08:35:54+00:00",
       "price": null,
+      "discount": null,
       "keywords": [
         "무신사"
       ]
@@ -677,6 +758,7 @@
       "kind": "news",
       "published_at": "2026-11-20T06:44:30+00:00",
       "price": null,
+      "discount": null,
       "keywords": [
         "무신사"
       ]
@@ -689,6 +771,7 @@
       "kind": "news",
       "published_at": "2026-11-20T03:56:47+00:00",
       "price": null,
+      "discount": null,
       "keywords": [
         "무신사"
       ]
@@ -703,7 +786,8 @@
       "price": null,
       "keywords": [
         "무신사"
-      ]
+      ],
+      "discount": null
     },
     {
       "title": "무신사 '겨울 쇼핑 축제' 판 키운다…1500개 특가에 롯데리아 버거까지",
@@ -713,6 +797,7 @@
       "kind": "news",
       "published_at": "2026-11-20T00:48:14+00:00",
       "price": null,
+      "discount": null,
       "keywords": [
         "무신사"
       ]
@@ -725,6 +810,7 @@
       "kind": "news",
       "published_at": "2026-11-20T00:21:49+00:00",
       "price": null,
+      "discount": "최대 30%",
       "keywords": [
         "무신사"
       ]
@@ -737,6 +823,7 @@
       "kind": "news",
       "published_at": "2026-11-19T23:48:00+00:00",
       "price": null,
+      "discount": "최대 80%",
       "keywords": [
         "무신사"
       ]
@@ -749,6 +836,7 @@
       "kind": "news",
       "published_at": "2026-11-19T23:48:00+00:00",
       "price": null,
+      "discount": null,
       "keywords": [
         "무신사"
       ]
@@ -761,6 +849,7 @@
       "kind": "news",
       "published_at": "2026-11-19T23:31:03+00:00",
       "price": null,
+      "discount": null,
       "keywords": [
         "무신사"
       ]
@@ -773,6 +862,7 @@
       "kind": "news",
       "published_at": "2026-11-19T23:13:12+00:00",
       "price": null,
+      "discount": "최대 99%",
       "keywords": [
         "무신사"
       ]
@@ -785,6 +875,7 @@
       "kind": "news",
       "published_at": "2026-11-19T22:51:20+00:00",
       "price": null,
+      "discount": null,
       "keywords": [
         "무신사"
       ]
