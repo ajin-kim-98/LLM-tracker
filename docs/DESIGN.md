@@ -16,43 +16,43 @@ colors:
   border: "#d2d2d7"
 typography:
   headline-featured:
-    fontFamily: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", "Helvetica Neue", Arial, sans-serif
+    fontFamily: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", "Helvetica Neue", Arial, sans-serif
     fontSize: 32px
     fontWeight: 700
     lineHeight: 1.25
     letterSpacing: 0em
   price-featured:
-    fontFamily: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", "Helvetica Neue", Arial, sans-serif
+    fontFamily: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", "Helvetica Neue", Arial, sans-serif
     fontSize: 28px
     fontWeight: 700
     lineHeight: 1.2
     letterSpacing: 0em
   title-section:
-    fontFamily: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", "Helvetica Neue", Arial, sans-serif
+    fontFamily: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", "Helvetica Neue", Arial, sans-serif
     fontSize: 21px
     fontWeight: 700
     lineHeight: 1.3
     letterSpacing: 0em
   title-item:
-    fontFamily: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", "Helvetica Neue", Arial, sans-serif
+    fontFamily: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", "Helvetica Neue", Arial, sans-serif
     fontSize: 17px
     fontWeight: 600
     lineHeight: 1.4
     letterSpacing: 0em
   price:
-    fontFamily: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", "Helvetica Neue", Arial, sans-serif
+    fontFamily: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", "Helvetica Neue", Arial, sans-serif
     fontSize: 17px
     fontWeight: 700
     lineHeight: 1.4
     letterSpacing: 0em
   body:
-    fontFamily: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", "Helvetica Neue", Arial, sans-serif
+    fontFamily: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", "Helvetica Neue", Arial, sans-serif
     fontSize: 17px
     fontWeight: 400
     lineHeight: 1.53
     letterSpacing: 0em
   meta:
-    fontFamily: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", "Helvetica Neue", Arial, sans-serif
+    fontFamily: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", "Helvetica Neue", Arial, sans-serif
     fontSize: 15px
     fontWeight: 400
     lineHeight: 1.4
@@ -91,6 +91,15 @@ components:
   link:
     textColor: "{colors.primary}"
     typography: "{typography.body}"
+  chip:
+    backgroundColor: "{colors.surface}"
+    textColor: "{colors.text}"
+    typography: "{typography.meta}"
+    rounded: "{rounded.full}"
+    height: 36px
+  chip-selected:
+    backgroundColor: "{colors.primary}"
+    textColor: "{colors.on-primary}"
   badge:
     backgroundColor: "{colors.badge}"
     textColor: "{colors.text}"
@@ -112,7 +121,7 @@ components:
 
 ## Overview
 
-겨울옷 할인 소식을 최신순으로 훑어보는 페이지다. 바탕은 무채색이고 강조색은 청록 하나다. 가장 최근 소식 1건만 크게 보여주고, 나머지는 구분선으로 나눈 목록으로 보여준다. 카드, 그림자, 이모지 같은 장식은 쓰지 않고 글자 크기와 여백으로 위계를 만든다.
+겨울옷 할인 소식을 최신순으로 훑어보는 페이지다. 바탕은 무채색이고 강조색은 청록 하나다. 가격이나 할인율이 적힌 가장 최근 소식 1건만 크게 보여주고, 나머지는 구분선으로 나눈 목록으로 보여준다. 카드, 그림자, 이모지 같은 장식은 쓰지 않고 글자 크기와 여백으로 위계를 만든다.
 
 글자 크기와 여백 체계는 Apple Developer 디자인 페이지를 참고했다. light mode만 다룬다.
 
@@ -156,7 +165,7 @@ components:
 
 ## Typography
 
-- 서체는 system font stack이다. Apple 기기에서는 SF가, Windows에서는 맑은 고딕이 나온다.
+- 서체는 Pretendard(웹폰트, jsDelivr의 dynamic subset)다. 불러오지 못하면 system font stack(SF, 맑은 고딕)으로 대신한다.
 - 본문은 17px이고, 가장 작은 글씨(meta)도 15px 아래로 내려가지 않는다.
 - 모든 글자는 배경과 명암비 4.5:1 이상을 지킨다. 흐린 회색 글씨를 쓰지 않는다.
 - 제목은 본문과 확실히 차이 나게 크고 굵게 쓴다.
@@ -176,10 +185,13 @@ components:
 - **콘텐츠 폭**: 가운데 배치, 최대 980px. 1068px 이하에서는 692px, 734px 이하에서는 화면 폭의 87.5%.
 - **페이지 구성 순서**:
   1. Header: 왼쪽에 사이트 이름, 그 옆이나 아래에 한 줄 설명.
-  2. Featured: 가장 최근 소식 1건. 페이지에서 가장 큰 요소다.
-  3. 목록: 섹션 제목 아래에 나머지 소식을 최신순으로 한 줄에 하나씩.
-  4. Footer.
-- **목록의 한 줄**: 왼쪽에 제목, 그 아래에 출처와 게시 시각. 오른쪽 끝에 가격. 734px 이하에서는 가격이 제목 아래로 내려간다.
+  2. 키워드 칩: `전체`와 키워드마다 칩 하나, 칩 안에 글 개수. 누르면 그 키워드 글만 보이고, 선택은 브라우저에 저장한다.
+  3. AI 상태 줄(선택 기능): 왼쪽에 상태 문구, 오른쪽에 텍스트 버튼.
+  4. Featured: 가격이나 할인율이 적힌 가장 최근 소식 1건(없으면 가장 최근 소식). 페이지에서 가장 큰 요소다.
+  5. 목록: 나머지 소식을 한국 시간 기준 `오늘 / 어제 / 이번 주 / 지난 소식`으로 묶고, 묶음 제목 옆에 개수를 적는다. 묶음 안은 최신순.
+  6. Footer.
+- **목록의 한 줄**: 왼쪽에 제목, 그 아래에 출처와 게시 시각. 오른쪽 끝에 가격, 가격이 없으면 할인율(예: 최대 80%), 둘 다 없으면 비워둔다. 734px 이하에서는 가격이 제목 아래로 내려간다.
+- **게시 시각**: 1시간 이내는 `n분 전`, 하루 이내는 `n시간 전`, 그보다 오래되면 `11월 24일`. 정확한 시각은 마우스를 올리면 보인다.
 - **구분**: 목록의 줄 사이는 1px 구분선(border)과 위아래 `{spacing.md}`(16px) 여백으로 나눈다. 줄마다 카드를 만들지 않는다.
 - **여백**: header와 featured 사이 `{spacing.lg}`(24px), featured와 목록 사이 `{spacing.xxl}`(48px), 섹션 제목과 첫 줄 사이 `{spacing.md}`(16px), 제목과 meta 사이 `{spacing.xs}`(4px).
 - 여백 값은 4px의 배수만 쓴다.
@@ -202,10 +214,12 @@ components:
 - **list-item**: 배경 없음, 아래 1px 구분선, 위아래 16px 여백. 제목은 원문으로 가는 링크이고 text 색으로 쓰며 hover 시 밑줄을 긋는다. 가격은 primary 색.
 - **button-primary**: primary 배경에 흰 글자, pill 모양, 위아래 12px 좌우 22px 여백. 페이지에 하나(featured 안)만 둔다.
 - **link**: 본문 안의 링크는 primary 색, hover 시 밑줄.
-- **badge**: badge 배경에 text 색 글자, 15px. 한 줄에 최대 하나.
+- **badge**: badge 배경에 text 색 글자, 15px. 한 줄에 최대 하나. 뽐뿌 핫딜 글에만 `핫딜`로 붙인다.
+- **chip**: surface 배경, pill 모양, 높이 36px, 15px 600. 개수는 400, text-secondary. 선택된 칩은 primary 배경에 흰 글자(개수도 흰색). 칩은 버튼이 아니라 필터라서 button-primary 개수 제한에 들지 않는다.
+- **text-button**: 배경 없는 primary 색 17px 글자. AI 상태 줄처럼 채운 버튼을 쓸 수 없는 곳에 쓴다.
 - **header**: 높이 56px, 흰 배경, 아래 1px 구분선.
 - **footer**: surface 배경, 15px, text-secondary 색.
-- **빈 값**: 가격이 없으면 text-secondary 색으로 "가격 정보 없음"이라고 쓴다.
+- **빈 값**: 가격도 할인율도 없으면 그 자리를 비운다. "가격 정보 없음"을 줄마다 반복하지 않는다.
 
 ## Do's and Don'ts
 

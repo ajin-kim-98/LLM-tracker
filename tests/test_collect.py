@@ -5,7 +5,9 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "scripts"))
 
-from collect import extract_price, filter_items, merge, parse_google_news, parse_ppomppu  # noqa: E402
+from collect import (  # noqa: E402
+    extract_discount, extract_price, filter_items, merge, parse_google_news, parse_ppomppu,
+)
 
 KEYWORDS = ["유니클로", "노스페이스", "무신사", "패딩"]
 SALE_WORDS = ["할인", "세일", "특가"]
@@ -67,6 +69,17 @@ class PriceTest(unittest.TestCase):
         self.assertEqual(extract_price("패딩 9900원"), "9900원")
         self.assertEqual(extract_price("패딩 9.9만 원"), "9.9만원")
         self.assertIsNone(extract_price("패딩 최대 60% 할인"))
+
+    def test_discount(self):
+        self.assertEqual(extract_discount("패딩·코트 최대 60% 할인"), "최대 60%")
+        self.assertIsNone(extract_discount("무신사 스탠다드 흥행… 슈퍼세일에 매출 63%↑"))
+        self.assertIsNone(extract_discount("패딩 판매량 40% 증가"))
+        self.assertEqual(extract_discount("노스페이스 눕시 30 % 세일"), "30%")
+        self.assertIsNone(extract_discount("유니클로 감사제 2주간 진행"))
+
+    def test_news_discount_in_acceptance_data(self):
+        result = filter_items(parse_google_news(NEWS_XML), KEYWORDS, SALE_WORDS)
+        self.assertEqual(result[0]["discount"], "최대 30%")
 
 
 class MergeTest(unittest.TestCase):

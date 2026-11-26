@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>윈터딜</title>
 <meta name="description" content="뽐뿌 핫딜과 Google 뉴스에서 모은 유니클로, 노스페이스, 무신사, 패딩 할인 소식">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>
   :root {
     --primary: #287A74;
@@ -18,7 +20,7 @@
     --text: #1d1d1f;
     --text-secondary: #6e6e73;
     --border: #d2d2d7;
-    --font: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", "Helvetica Neue", Arial, sans-serif;
+    --font: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", "Helvetica Neue", Arial, sans-serif;
     --content: 980px;
     color-scheme: light;
   }
@@ -43,6 +45,7 @@
   .wrap { width: var(--content); max-width: 980px; margin: 0 auto; }
   a { color: var(--primary); text-decoration: none; }
   a:hover { text-decoration: underline; }
+  button { font-family: inherit; }
 
   /* Header */
   header { border-bottom: 1px solid var(--border); }
@@ -57,6 +60,22 @@
 
   main { flex: 1; padding-block: 24px 48px; }
 
+  /* Keyword chips */
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+  .chip {
+    height: 36px; padding: 0 16px;
+    border: 0; border-radius: 980px;
+    background: var(--surface); color: var(--text);
+    font-size: 15px; font-weight: 600; line-height: 1.4;
+    cursor: pointer;
+  }
+  .chip:hover { box-shadow: inset 0 0 0 1px var(--border); }
+  .chip .count { margin-left: 4px; font-weight: 400; color: var(--text-secondary); }
+  .chip[aria-pressed="true"] { background: var(--primary); color: var(--on-primary); }
+  .chip[aria-pressed="true"]:hover { background: var(--primary-hover); box-shadow: none; }
+  .chip[aria-pressed="true"] .count { color: var(--on-primary); }
+  .chip:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+
   /* Featured */
   .featured {
     background: var(--highlight);
@@ -65,10 +84,9 @@
     padding: 32px;
     color: var(--text);
   }
-  .featured .meta { color: var(--text); }
+  .featured .meta { margin-top: 0; color: var(--text); }
   .featured-title { margin: 8px 0 0; font-size: 32px; font-weight: 700; line-height: 1.25; }
   .featured-price { margin: 16px 0 0; font-size: 28px; font-weight: 700; line-height: 1.2; }
-  .featured-price.empty { font-size: 17px; font-weight: 400; }
   .button {
     display: inline-block; margin-top: 24px;
     background: var(--primary); color: var(--on-primary);
@@ -77,8 +95,11 @@
   }
   .button:hover { background: var(--primary-hover); text-decoration: none; }
 
-  /* List */
-  .section-title { margin: 48px 0 16px; font-size: 21px; font-weight: 700; line-height: 1.3; }
+  /* List grouped by day */
+  .group-title { margin: 48px 0 16px; font-size: 21px; font-weight: 700; line-height: 1.3; }
+  .group-title + .list { margin-bottom: 0; }
+  .group-title .count { margin-left: 8px; font-size: 15px; font-weight: 400; color: var(--text-secondary); }
+  .list ~ .group-title { margin-top: 32px; }
   .list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--border); }
   .item {
     display: flex; justify-content: space-between; align-items: baseline; gap: 24px;
@@ -89,12 +110,11 @@
   .item-body { min-width: 0; }
   .meta { margin-top: 4px; font-size: 15px; line-height: 1.4; color: var(--text-secondary); }
   .price { flex-shrink: 0; font-size: 17px; font-weight: 700; line-height: 1.4; color: var(--primary); }
-  .price.empty { font-weight: 400; color: var(--text-secondary); }
   .badge {
     display: inline-block; margin-right: 8px;
     background: var(--badge); color: var(--text);
     border-radius: 8px; padding: 0 4px;
-    font-size: 15px; line-height: 1.4;
+    font-size: 15px; font-weight: 600; line-height: 1.4;
   }
 
   .notice { color: var(--text-secondary); }
@@ -109,7 +129,7 @@
   .ai-actions { display: flex; flex-wrap: wrap; gap: 16px; margin-left: auto; }
   .text-button {
     padding: 0; border: 0; background: none; cursor: pointer;
-    font-family: inherit; font-size: 17px; line-height: 1.53; color: var(--primary);
+    font-size: 17px; line-height: 1.53; color: var(--primary);
   }
   .text-button:hover { color: var(--primary-hover); text-decoration: underline; }
   .text-button:focus-visible { outline: 2px solid var(--primary); outline-offset: 4px; border-radius: 4px; }
@@ -143,7 +163,7 @@
 
 <footer>
   <div class="wrap">
-    <p>15분마다 뽐뿌 핫딜과 Google 뉴스에서 새 글을 모읍니다. 가격은 글 제목에 적힌 값만 보여줍니다.</p>
+    <p>15분마다 뽐뿌 핫딜과 Google 뉴스에서 새 글을 모읍니다. 가격과 할인율은 글 제목에 적힌 값만 보여줍니다.</p>
     <p>AI 판단은 이 브라우저 안의 Chrome 내장 AI로만 실행되고, 결과는 이 기기에만 저장됩니다.</p>
     <p id="updated"></p>
   </div>
@@ -154,13 +174,14 @@
 <script src="js/ai.js"></script>
 <script>
 (function () {
-  var NO_PRICE = "가격 정보 없음";
-  var NEW_MS = 60 * 60 * 1000; // 1시간 이내 글에 "새 글" 표시
+  var TZ = "Asia/Seoul";
+  var DAY_MS = 24 * 60 * 60 * 1000;
 
   var dateFmt = new Intl.DateTimeFormat("ko-KR", {
-    timeZone: "Asia/Seoul", month: "long", day: "numeric",
-    hour: "2-digit", minute: "2-digit", hour12: false
+    timeZone: TZ, month: "long", day: "numeric", hour: "2-digit", minute: "2-digit", hour12: false
   });
+  var dayFmt = new Intl.DateTimeFormat("ko-KR", { timeZone: TZ, month: "long", day: "numeric" });
+  var ymdFmt = new Intl.DateTimeFormat("en-CA", { timeZone: TZ, year: "numeric", month: "2-digit", day: "2-digit" });
 
   function el(tag, cls, text) {
     var node = document.createElement(tag);
@@ -173,64 +194,95 @@
     return /^https?:\/\//i.test(url || "") ? url : "#";
   }
 
+  function link(cls, text, url) {
+    var a = el("a", cls, text);
+    a.href = safeLink(url);
+    a.target = "_blank";
+    a.rel = "noopener noreferrer";
+    return a;
+  }
+
   function when(iso) {
     if (!iso) return "게시 시각 정보 없음";
     return dateFmt.format(new Date(iso));
   }
 
+  /* "방금 · 12분 전 · 3시간 전", 하루가 지나면 "11월 24일" */
+  function ago(iso) {
+    if (!iso) return "게시 시각 정보 없음";
+    var diff = Date.now() - new Date(iso).getTime();
+    if (diff < 60 * 1000) return "방금";
+    if (diff < 60 * 60 * 1000) return Math.floor(diff / 60000) + "분 전";
+    if (diff < DAY_MS) return Math.floor(diff / 3600000) + "시간 전";
+    return dayFmt.format(new Date(iso));
+  }
+
+  /* 한국 시간 기준 날짜 묶음: 오늘 / 어제 / 이번 주 / 지난 소식 */
+  function dayGroup(iso) {
+    if (!iso) return "지난 소식";
+    var day = Date.parse(ymdFmt.format(new Date(iso)));
+    var today = Date.parse(ymdFmt.format(new Date()));
+    var diff = Math.round((today - day) / DAY_MS);
+    if (diff <= 0) return "오늘";
+    if (diff === 1) return "어제";
+    if (diff < 7) return "이번 주";
+    return "지난 소식";
+  }
+  var GROUP_ORDER = ["오늘", "어제", "이번 주", "지난 소식"];
+
   function metaText(item) {
     var parts = [item.source];
     if (item.shop) parts.push(item.shop);
-    parts.push(when(item.published_at));
+    parts.push(ago(item.published_at));
     return parts.join(" · ");
   }
 
-  function isNew(item) {
-    return item.published_at && (Date.now() - new Date(item.published_at).getTime()) < NEW_MS;
+  /* 오른쪽 숫자: 가격 → 없으면 할인율 → 둘 다 없으면 비움 (지어내지 않는다) */
+  function headline(item) { return item.price || item.discount || ""; }
+
+  function itemKeywords(item) {
+    if (Array.isArray(item.keywords) && item.keywords.length) return item.keywords;
+    var kws = (view.data && view.data.keywords) || [];
+    return kws.filter(function (k) { return item.title.toLowerCase().indexOf(k.toLowerCase()) !== -1; });
   }
 
   function renderFeatured(item) {
     var box = el("section", "featured");
-    box.setAttribute("aria-label", "가장 최근 할인 소식");
-    box.appendChild(el("div", "meta", metaText(item)));
+    box.setAttribute("aria-label", "지금 눈여겨볼 할인 소식");
+    var meta = el("div", "meta");
+    if (item.kind === "hotdeal") meta.appendChild(el("span", "badge", "핫딜"));
+    meta.appendChild(document.createTextNode(metaText(item)));
+    box.appendChild(meta);
     box.appendChild(el("h2", "featured-title", item.title));
-    box.appendChild(el("p", "featured-price" + (item.price ? "" : " empty"), item.price || NO_PRICE));
+    if (headline(item)) box.appendChild(el("p", "featured-price", headline(item)));
     var j = judgment(item);
     if (j && j.reason) box.appendChild(el("p", "reason", "AI 판단: " + j.reason));
-    var btn = el("a", "button", "원문 보기");
-    btn.href = safeLink(item.link);
-    btn.target = "_blank";
-    btn.rel = "noopener noreferrer";
-    box.appendChild(btn);
+    box.appendChild(link("button", "원문 보기", item.link));
     return box;
   }
 
   function renderItem(item) {
     var li = el("li", "item");
     var body = el("div", "item-body");
-    var a = el("a", "item-title", item.title);
-    a.href = safeLink(item.link);
-    a.target = "_blank";
-    a.rel = "noopener noreferrer";
-    body.appendChild(a);
+    body.appendChild(link("item-title", item.title, item.link));
     var meta = el("div", "meta");
-    if (isNew(item)) meta.appendChild(el("span", "badge", "새 글"));
+    if (item.kind === "hotdeal") meta.appendChild(el("span", "badge", "핫딜"));
     meta.appendChild(document.createTextNode(metaText(item)));
+    meta.title = when(item.published_at);
     body.appendChild(meta);
     var j = judgment(item);
     if (j && j.reason) body.appendChild(el("div", "reason", "AI 판단: " + j.reason));
     li.appendChild(body);
-    li.appendChild(el("span", "price" + (item.price ? "" : " empty"), item.price || NO_PRICE));
+    if (headline(item)) li.appendChild(el("span", "price", headline(item)));
     return li;
   }
 
-  /* ───────── AI 판단 (Chrome 내장 AI, 선택 기능) ─────────
-   * 제목(한국어) → KoTranslate.toEnglish → AI.ask(ai/prompt.md + ai/schema.json) → reason만 한국어로.
-   * 판단 결과는 이 브라우저의 localStorage에만 저장한다 (서버로 보내지 않음).
-   */
+  /* ───────── 상태 ───────── */
   var AI_STORE = "winterdeal:ai:v1";
+  var FILTER_STORE = "winterdeal:filter:v1";
   var AI_OK = !!(window.AI && AI.isSupported() && window.KoTranslate && KoTranslate.isSupported());
   var ai = loadAi();                       // { on, key, cache: { link: { relevant, reason } } }
+  var filter = loadFilter();               // "" = 전체, 아니면 키워드
   var view = { data: null, judging: false, msg: "", error: "", done: 0, total: 0 };
 
   function loadAi() {
@@ -243,6 +295,14 @@
   function saveAi() {
     try { localStorage.setItem(AI_STORE, JSON.stringify(ai)); } catch (e) {}
   }
+  function loadFilter() {
+    try { return localStorage.getItem(FILTER_STORE) || ""; } catch (e) { return ""; }
+  }
+  function setFilter(k) {
+    filter = k;
+    try { localStorage.setItem(FILTER_STORE, k); } catch (e) {}
+    render();
+  }
 
   function sortedItems() {
     return ((view.data && view.data.items) || []).slice().sort(function (a, b) {
@@ -253,6 +313,10 @@
   function isHidden(item) { var j = judgment(item); return !!j && j.relevant === false; }
   function pendingItems() { return sortedItems().filter(function (i) { return !(i.link in ai.cache); }); }
 
+  /* ───────── AI 판단 (Chrome 내장 AI, 선택 기능) ─────────
+   * 제목(한국어) → KoTranslate.toEnglish → AI.ask(ai/prompt.md + ai/schema.json) → reason만 한국어로.
+   * 판단 결과는 이 브라우저의 localStorage에만 저장한다 (서버로 보내지 않음).
+   */
   async function runAi() {
     if (view.judging) return;
     // 모델 다운로드는 클릭 직후, 어떤 await보다 먼저 시작해야 허용된다.
@@ -339,16 +403,35 @@
     return bar;
   }
 
+  function renderChips(visible) {
+    var wrap = el("div", "chips");
+    wrap.setAttribute("role", "group");
+    wrap.setAttribute("aria-label", "키워드로 걸러 보기");
+    var kws = (view.data && view.data.keywords) || [];
+    var options = [{ key: "", label: "전체", count: visible.length }].concat(kws.map(function (k) {
+      return { key: k, label: k, count: visible.filter(function (i) { return itemKeywords(i).indexOf(k) !== -1; }).length };
+    }));
+    options.forEach(function (o) {
+      var b = el("button", "chip", o.label);
+      b.type = "button";
+      b.setAttribute("aria-pressed", String(filter === o.key));
+      b.appendChild(el("span", "count", String(o.count)));
+      b.addEventListener("click", function () { setFilter(filter === o.key ? "" : o.key); });
+      wrap.appendChild(b);
+    });
+    return wrap;
+  }
+
   function render() {
     var data = view.data;
     var main = document.getElementById("main");
     main.textContent = "";
     var all = sortedItems();
-    var items = all.filter(function (i) { return !isHidden(i); });
 
     if (data.keywords && data.keywords.length) {
       document.getElementById("tagline").textContent =
         "뽐뿌 핫딜과 Google 뉴스에서 모은 " + data.keywords.join(", ") + " 할인 소식";
+      if (filter && data.keywords.indexOf(filter) === -1) filter = "";   // 사라진 키워드면 전체로
     }
     if (data.updated_at) {
       document.getElementById("updated").textContent = "마지막 수집: " + when(data.updated_at);
@@ -359,19 +442,34 @@
       return;
     }
 
-    main.appendChild(renderAiBar(all.length - items.length));
+    var visible = all.filter(function (i) { return !isHidden(i); });
+    main.appendChild(renderChips(visible));
+    main.appendChild(renderAiBar(all.length - visible.length));
+
+    var items = filter ? visible.filter(function (i) { return itemKeywords(i).indexOf(filter) !== -1; }) : visible;
     if (!items.length) {
-      main.appendChild(el("p", "notice", "AI 기준으로 남은 겨울옷 할인 소식이 없습니다."));
+      main.appendChild(el("p", "notice", filter
+        ? filter + " 할인 소식이 아직 없습니다. 15분마다 새로 모읍니다."
+        : "AI 기준으로 남은 겨울옷 할인 소식이 없습니다."));
       return;
     }
 
-    main.appendChild(renderFeatured(items[0]));
-    if (items.length > 1) {
-      main.appendChild(el("h2", "section-title", "이전 소식 " + (items.length - 1) + "건"));
+    // featured: 가격이나 할인율이 적힌 가장 최근 글. 없으면 가장 최근 글.
+    var featured = items.filter(function (i) { return headline(i); })[0] || items[0];
+    main.appendChild(renderFeatured(featured));
+
+    var rest = items.filter(function (i) { return i !== featured; });
+    var groups = {};
+    rest.forEach(function (i) { var g = dayGroup(i.published_at); (groups[g] = groups[g] || []).push(i); });
+    GROUP_ORDER.forEach(function (g) {
+      if (!groups[g]) return;
+      var h = el("h2", "group-title", g);
+      h.appendChild(el("span", "count", groups[g].length + "건"));
+      main.appendChild(h);
       var ul = el("ul", "list");
-      items.slice(1).forEach(function (item) { ul.appendChild(renderItem(item)); });
+      groups[g].forEach(function (item) { ul.appendChild(renderItem(item)); });
       main.appendChild(ul);
-    }
+    });
   }
 
   fetch("deals.json", { cache: "no-store" })
@@ -384,6 +482,8 @@
       Object.keys(ai.cache).forEach(function (l) { if (!links[l]) delete ai.cache[l]; });
       saveAi();
       render();
+      // "n분 전" 표시가 낡지 않게 1분마다 다시 그린다 (판단 중에는 건너뜀).
+      setInterval(function () { if (!view.judging) render(); }, 60 * 1000);
     })
     .catch(function () {
       var main = document.getElementById("main");

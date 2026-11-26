@@ -27,6 +27,8 @@ USER_AGENT = "Mozilla/5.0 (compatible; WinterDeal/1.0; personal feed reader)"
 
 # "12,610원", "9900원", "9.9만원", "3만원" 같은 표기를 찾는다.
 PRICE_RE = re.compile(r"(\d+(?:\.\d+)?\s*만\s*원|\d{1,3}(?:,\d{3})+\s*원|\d+\s*원)")
+# "최대 60%", "30%", "최대 30 %" 같은 할인율 표기를 찾는다.
+DISCOUNT_RE = re.compile(r"(최대\s*)?(\d{1,2}(?:\.\d+)?)\s*%")
 
 
 # ---------- 순수 함수 (테스트 대상) ----------
@@ -37,6 +39,29 @@ def extract_price(title: str) -> str | None:
     if not match:
         return None
     return re.sub(r"\s+", "", match.group(1))
+
+
+NOT_DISCOUNT_BEFORE = re.compile(r"(매출|이익|점유율|성장률|증가율|거래액|판매량)[^%]{0,8}$")
+NOT_DISCOUNT_AFTER = re.compile(r"^\s*(↑|↓|증가|성장|상승|감소|하락|늘|줄)")
+
+
+def extract_discount(title: str) -> str | None:
+    """제목에 적힌 할인율을 '최대 60%' 형태로 돌려준다. 없으면 None.
+    '매출 63%↑'처럼 할인이 아닌 퍼센트는 건너뛴다."""
+    for match in DISCOUNT_RE.finditer(title):
+        before, after = title[:match.start()], title[match.end():]
+        if NOT_DISCOUNT_BEFORE.search(before) or NOT_DISCOUNT_AFTER.search(after):
+            continue
+        return ("최대 " if match.group(1) else "") + match.group(2) + "%"
+    return None
+
+
+def annotate(item: dict) -> dict:
+    """제목에서 가격·할인율을 다시 뽑는다 (예전에 저장된 글에도 새 규칙을 적용하기 위해)."""
+    item = dict(item)
+    item["price"] = extract_price(item["title"])
+    item["discount"] = extract_discount(item["title"])
+    return item
 
 
 def parse_date(text: str | None) -> str | None:
@@ -107,8 +132,7 @@ def filter_items(items: list[dict], keywords: list[str], sale_words: list[str]) 
     result = []
     for item in items:
         if matches(item, keywords, sale_words):
-            item = dict(item)
-            item["price"] = extract_price(item["title"])
+            item = annotate(item)
             item["keywords"] = [k for k in keywords if k.lower() in item["title"].lower()]
             result.append(item)
     return sort_latest(result)
@@ -186,7 +210,7 @@ def main() -> int:
     for err in errors:
         print(f"[경고] {err}", file=sys.stderr)
 
-    items = merge(old, new, config["keep_days"], config["max_items"])
+    items = [annotate(i) for i in merge(old, new, config["keep_days"], config["max_items"])]
     OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT_PATH.write_text(json.dumps({
         "updated_at": datetime.now(timezone.utc).isoformat(),
