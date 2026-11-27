@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-27T02:25:17.968823+00:00",
+  "updated_at": "2026-11-27T11:04:51.248606+00:00",
   "keywords": [
     "유니클로",
     "노스페이스",
@@ -7,6 +7,32 @@
     "패딩"
   ],
   "items": [
+    {
+      "title": "[롯데온] 테슬라 방수 방한 보드 스키 패딩 팬츠 (34,550원/무료)",
+      "link": "http://www.ppomppu.co.kr/zboard/view.php?id=ppomppu&no=752378",
+      "source": "뽐뿌 핫딜",
+      "shop": "롯데온",
+      "kind": "hotdeal",
+      "published_at": "2026-11-27T10:54:24+00:00",
+      "price": "34,550원",
+      "discount": null,
+      "keywords": [
+        "패딩"
+      ]
+    },
+    {
+      "title": "[리테일 인사이드] 쿠팡·G마켓·무신사·컬리·GS더프레시...\"블프 특가에 미식 축제까지\"",
+      "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTE1IcWhMdnp4NHdrS2I2aWhrY1M4Tkc5cUJPdDEzWTBDY2dXNjZfN2VTcG04OW1hZ2kycjhZSjFVZmQ4NE1lelZkblplXzIxNkNGaUZOQkZ3X1NLQmNPUTJsRzhJb3B2SjhFWmc?oc=5",
+      "source": "Google 뉴스 · 한국면세뉴스",
+      "shop": null,
+      "kind": "news",
+      "published_at": "2026-11-27T04:39:53+00:00",
+      "price": null,
+      "discount": null,
+      "keywords": [
+        "무신사"
+      ]
+    },
     {
       "title": "[무신사] PS5 Pro 콘솔 - 2TB (11월 28일 오후 8시 선착순) (1,298,000원/무료)",
       "link": "http://www.ppomppu.co.kr/zboard/view.php?id=ppomppu&no=752230",
@@ -498,10 +524,10 @@
       "kind": "news",
       "published_at": "2026-11-22T06:37:00+00:00",
       "price": "6900원",
+      "discount": null,
       "keywords": [
         "무신사"
-      ],
-      "discount": null
+      ]
     },
     {
       "title": "월 6900원에 5G 쓴다… SKT ‘에어’ 6종, 무신사 할인전 참여",
